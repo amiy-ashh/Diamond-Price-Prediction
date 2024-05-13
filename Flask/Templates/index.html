@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Diamond Price Prediction</title>
+  <style>
+    body {
+      background-image: url("/static/Diamonds.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 20px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 4mm;
+      border-radius: 300px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    label {
+      display: inline-block;
+      width: 150px;
+      text-align: right;
+    }
+
+    input {
+      width: 150px;
+      height: 7mm;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 20px;
+    }
+
+    .note {
+      color: rgb(14, 7, 154);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    .note p {
+      margin: 5px;
+    }
+
+    strong {
+      color: rgb(19, 2, 73);
+    }
+  </style>
+</head>
+
+<body onload="clearInputs()">
+  <div class="container">
+    <h1>Diamond Price Prediction</h1>
+
+    <form action="/predict" method="POST">
+      <label for="carat">Carat:</label>
+      <input type="number" id="carat" name="carat" step="0.01"
+        value="{{ request.form['carat'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="cut">Cut (0 to 4):</label>
+      <input type="number" id="cut" name="cut" min="0" max="4"
+        value="{{ request.form['cut'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="color">Color (0 to 6):</label>
+      <input type="number" id="color" name="color" min="0" max="6"
+        value="{{ request.form['color'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="clarity">Clarity (0 to 7):</label>
+      <input type="number" id="clarity" name="clarity" min="0" max="7"
+        value="{{ request.form['clarity'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="depth">Depth:</label>
+      <input type="number" id="depth" name="depth" step="0.01"
+        value="{{ request.form['depth'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="table">Table:</label>
+      <input type="number" id="table" name="table" step="0.01"
+        value="{{ request.form['table'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="x">x:</label>
+      <input type="number" id="x" name="x" step="0.01"
+        value="{{ request.form['x'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="y">y:</label>
+      <input type="number" id="y" name="y" step="0.01"
+        value="{{ request.form['y'] if request.method == 'POST' else '' }}" required><br>
+
+      <label for="z">z:</label>
+      <input type="number" id="z" name="z" step="0.01"
+        value="{{ request.form['z'] if request.method == 'POST' else '' }}" required><br><br>
+
+      <button type="submit">Predict Price</button>
+    </form>
+    
+    {% if predicted_price %}
+    <h2>Predicted Price: ${{ predicted_price }}</h2>
+    {% endif %}
+  </div>
+
+  <div class="note">
+    <p style="color:red">Imp to note:</p>
+    <p><strong>Cut:</strong> Fair: 0, Good: 1, Ideal: 2, Premium: 3, Very Good: 4</p>
+    <p><strong>Color:</strong> D: 0, E: 1, F: 2, G: 3, H: 4, I: 5, J: 6</p>
+    <p><strong>Clarity:</strong> I1: 0, IF: 1, SI1: 2, SI2: 3, VS1: 4, VS2: 5, VVS1: 6, VVS2: 7</p>
+  </div>
+
+</body>
+
+</html>
